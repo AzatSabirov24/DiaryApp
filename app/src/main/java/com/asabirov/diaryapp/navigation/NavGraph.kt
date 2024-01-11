@@ -24,6 +24,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.asabirov.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.asabirov.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
@@ -77,6 +78,10 @@ fun NavGraphBuilder.authenticationRoute(
 //    onDataLoaded: () -> Unit
 ) {
     composable(route = Screen.Authentication.route) {
+        AuthenticationScreen(
+            onButtonClicked = {},
+            loadingState = false
+        )
 //        val viewModel: AuthenticationViewModel = viewModel()
 //        val authenticated by viewModel.authenticated
 //        val loadingState by viewModel.loadingState
