@@ -78,14 +78,19 @@ fun NavGraphBuilder.authenticationRoute(
 //    onDataLoaded: () -> Unit
 ) {
     composable(route = Screen.Authentication.route) {
+        val oneTapState = rememberOneTapSignInState()
+        val messageBarState = rememberMessageBarState()
         AuthenticationScreen(
-            onButtonClicked = {},
-            loadingState = false
+            onButtonClicked = {
+                oneTapState.open()
+            },
+            loadingState = oneTapState.opened,
+            oneTapState = oneTapState,
+            messageBarState = messageBarState
         )
 //        val viewModel: AuthenticationViewModel = viewModel()
 //        val authenticated by viewModel.authenticated
 //        val loadingState by viewModel.loadingState
-//        val oneTapState = rememberOneTapSignInState()
 //        val messageBarState = rememberMessageBarState()
 //
 //        LaunchedEffect(key1 = Unit) {

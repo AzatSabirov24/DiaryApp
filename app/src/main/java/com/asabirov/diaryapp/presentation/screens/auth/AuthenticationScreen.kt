@@ -17,6 +17,7 @@ import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.MessageBarState
 import com.stevdzasan.onetap.OneTapSignInState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
+import java.lang.Exception
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -24,8 +25,8 @@ fun AuthenticationScreen(
     onButtonClicked: () -> Unit,
     loadingState: Boolean,
 //    authenticated: Boolean,
-//    oneTapState: OneTapSignInState,
-//    messageBarState: MessageBarState,
+    oneTapState: OneTapSignInState,
+    messageBarState: MessageBarState,
 //    onSuccessfulFirebaseSignIn: (String) -> Unit,
 //    onFailedFirebaseSignIn: (Exception) -> Unit,
 //    onDialogDismissed: (String) -> Unit,
@@ -37,19 +38,19 @@ fun AuthenticationScreen(
             .statusBarsPadding()
             .navigationBarsPadding(),
         content = {
-//            ContentWithMessageBar(messageBarState = messageBarState) {
+            ContentWithMessageBar(messageBarState = messageBarState) {
                 AuthenticationContent(
                     loadingState = loadingState,
                     onButtonClicked = onButtonClicked
                 )
-//            }
+            }
         }
     )
 
-//    OneTapSignInWithGoogle(
-//        state = oneTapState,
-//        clientId = CLIENT_ID,
-//        onTokenIdReceived = { tokenId ->
+    OneTapSignInWithGoogle(
+        state = oneTapState,
+        clientId = CLIENT_ID,
+        onTokenIdReceived = { tokenId ->
 //            val credential = GoogleAuthProvider.getCredential(tokenId, null)
 //            FirebaseAuth.getInstance().signInWithCredential(credential)
 //                .addOnCompleteListener { task ->
@@ -59,11 +60,15 @@ fun AuthenticationScreen(
 //                        task.exception?.let { onFailedFirebaseSignIn(it) }
 //                    }
 //                }
-//        },
-//        onDialogDismissed = { message ->
+            println("qqq ->AuthenticationScreen->tokenId = ${tokenId}")
+            messageBarState.addSuccess("Successfully authenticated")
+        },
+        onDialogDismissed = { message ->
 //            onDialogDismissed(message)
-//        }
-//    )
+            println("qqq ->AuthenticationScreen->message = ${message}")
+            messageBarState.addError(Exception(message))
+        }
+    )
 //
 //    LaunchedEffect(key1 = authenticated) {
 //        if (authenticated) {
