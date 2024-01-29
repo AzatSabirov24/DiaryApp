@@ -24,13 +24,13 @@ import java.lang.Exception
 fun AuthenticationScreen(
     onButtonClicked: () -> Unit,
     loadingState: Boolean,
-//    authenticated: Boolean,
+    authenticated: Boolean,
     oneTapState: OneTapSignInState,
     messageBarState: MessageBarState,
     onSuccessfulFirebaseSignIn: (String) -> Unit,
 //    onFailedFirebaseSignIn: (Exception) -> Unit,
     onDialogDismissed: (String) -> Unit,
-//    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier
@@ -67,10 +67,10 @@ fun AuthenticationScreen(
             onDialogDismissed(message)
         }
     )
-//
-//    LaunchedEffect(key1 = authenticated) {
-//        if (authenticated) {
-//            navigateToHome()
-//        }
-//    }
+
+    LaunchedEffect(key1 = authenticated) {
+        if (authenticated) {
+            navigateToHome()
+        }
+    }
 }
