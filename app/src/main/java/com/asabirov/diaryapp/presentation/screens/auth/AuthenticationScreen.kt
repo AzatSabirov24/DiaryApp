@@ -27,9 +27,9 @@ fun AuthenticationScreen(
 //    authenticated: Boolean,
     oneTapState: OneTapSignInState,
     messageBarState: MessageBarState,
-//    onSuccessfulFirebaseSignIn: (String) -> Unit,
+    onSuccessfulFirebaseSignIn: (String) -> Unit,
 //    onFailedFirebaseSignIn: (Exception) -> Unit,
-//    onDialogDismissed: (String) -> Unit,
+    onDialogDismissed: (String) -> Unit,
 //    navigateToHome: () -> Unit
 ) {
     Scaffold(
@@ -60,13 +60,11 @@ fun AuthenticationScreen(
 //                        task.exception?.let { onFailedFirebaseSignIn(it) }
 //                    }
 //                }
-            println("qqq ->AuthenticationScreen->tokenId = ${tokenId}")
-            messageBarState.addSuccess("Successfully authenticated")
+            println("qqq ->AuthenticationScreen->${tokenId}")
+            onSuccessfulFirebaseSignIn(tokenId)
         },
         onDialogDismissed = { message ->
-//            onDialogDismissed(message)
-            println("qqq ->AuthenticationScreen->message = ${message}")
-            messageBarState.addError(Exception(message))
+            onDialogDismissed(message)
         }
     )
 //

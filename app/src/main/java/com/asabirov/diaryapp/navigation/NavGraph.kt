@@ -25,6 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.asabirov.diaryapp.presentation.screens.auth.AuthenticationScreen
+import com.asabirov.diaryapp.presentation.screens.auth.AuthenticationViewModel
 import com.asabirov.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
@@ -80,17 +81,35 @@ fun NavGraphBuilder.authenticationRoute(
     composable(route = Screen.Authentication.route) {
         val oneTapState = rememberOneTapSignInState()
         val messageBarState = rememberMessageBarState()
+        val viewModel: AuthenticationViewModel = viewModel()
+//        val authenticated by viewModel.authenticated
+        val loadingState by viewModel.loadingState
         AuthenticationScreen(
             onButtonClicked = {
                 oneTapState.open()
+                viewModel.setLoading(true)
             },
-            loadingState = oneTapState.opened,
+            loadingState = loadingState,
             oneTapState = oneTapState,
-            messageBarState = messageBarState
+            messageBarState = messageBarState,
+            onSuccessfulFirebaseSignIn = { tokenId ->
+                viewModel.signInWithMongoAtlas(
+                    tokenId = tokenId,
+                    onSuccess = {
+                        messageBarState.addSuccess("Successfully authenticated")
+                        viewModel.setLoading(false)
+                    },
+                    onError = {
+                        messageBarState.addError(it)
+                        viewModel.setLoading(false)
+                    },
+                )
+            },
+            onDialogDismissed = {
+                messageBarState.addError(Exception(it))
+                viewModel.setLoading(false)
+            }
         )
-//        val viewModel: AuthenticationViewModel = viewModel()
-//        val authenticated by viewModel.authenticated
-//        val loadingState by viewModel.loadingState
 //        val messageBarState = rememberMessageBarState()
 //
 //        LaunchedEffect(key1 = Unit) {
