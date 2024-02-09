@@ -34,6 +34,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.asabirov.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.asabirov.diaryapp.presentation.screens.auth.AuthenticationViewModel
+import com.asabirov.diaryapp.presentation.screens.home.HomeScreen
 import com.asabirov.diaryapp.util.Constants.APP_ID
 import com.asabirov.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.messagebar.rememberMessageBarState
@@ -43,7 +44,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SetupNavGraph(
     startDestination: String,
@@ -62,9 +63,9 @@ fun SetupNavGraph(
 //            onDataLoaded = onDataLoaded
         )
         homeRoute(
-//            navigateToWrite = {
-//                navController.navigate(Screen.Write.route)
-//            },
+            navigateToWrite = {
+                navController.navigate(Screen.Write.route)
+            },
 //            navigateToWriteWithArgs = {
 //                navController.navigate(Screen.Write.passDiaryId(diaryId = it))
 //            },
@@ -162,28 +163,29 @@ fun NavGraphBuilder.authenticationRoute(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.homeRoute(
-//    navigateToWrite: () -> Unit,
+    navigateToWrite: () -> Unit,
 //    navigateToWriteWithArgs: (String) -> Unit,
 //    navigateToAuth: () -> Unit,
 //    onDataLoaded: () -> Unit
 ) {
     composable(route = Screen.Home.route) {
-        val scope = rememberCoroutineScope()
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(onClick = {
-                scope.launch(Dispatchers.IO) {
-                    App.create(APP_ID).currentUser?.logOut()
-                }
-            }) {
-                Text(text = "Log out")
-            }
-        }
+
+//        val scope = rememberCoroutineScope()
+//        Column(
+//            modifier = Modifier.fillMaxSize(),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Button(onClick = {
+//                scope.launch(Dispatchers.IO) {
+//                    App.create(APP_ID).currentUser?.logOut()
+//                }
+//            }) {
+//                Text(text = "Log out")
+//            }
+//        }
 //        val viewModel: HomeViewModel = hiltViewModel()
 //        val diaries by viewModel.diaries
 //        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -197,22 +199,22 @@ fun NavGraphBuilder.homeRoute(
 //            }
 //        }
 //
-//        HomeScreen(
+        HomeScreen(
 //            diaries = diaries,
 //            drawerState = drawerState,
-//            onMenuClicked = {
+            onMenuClicked = {
 //                scope.launch {
 //                    drawerState.open()
 //                }
-//            },
+            },
 //            dateIsSelected = viewModel.dateIsSelected,
 //            onDateSelected = { viewModel.getDiaries(zonedDateTime = it) },
 //            onDateReset = { viewModel.getDiaries() },
 //            onSignOutClicked = { signOutDialogOpened = true },
 //            onDeleteAllClicked = { deleteAllDialogOpened = true },
-//            navigateToWrite = navigateToWrite,
+            navigateToWrite = navigateToWrite,
 //            navigateToWriteWithArgs = navigateToWriteWithArgs
-//        )
+        )
 //
 //        DisplayAlertDialog(
 //            title = "Sign Out",
