@@ -172,7 +172,7 @@ fun NavGraphBuilder.homeRoute(
 ) {
     composable(route = Screen.Home.route) {
 
-//        val scope = rememberCoroutineScope()
+        val scope = rememberCoroutineScope()
 //        Column(
 //            modifier = Modifier.fillMaxSize(),
 //            verticalArrangement = Arrangement.Center,
@@ -188,7 +188,7 @@ fun NavGraphBuilder.homeRoute(
 //        }
 //        val viewModel: HomeViewModel = hiltViewModel()
 //        val diaries by viewModel.diaries
-//        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 //        val context = LocalContext.current
 //        var signOutDialogOpened by remember { mutableStateOf(false) }
 //        var deleteAllDialogOpened by remember { mutableStateOf(false) }
@@ -201,16 +201,18 @@ fun NavGraphBuilder.homeRoute(
 //
         HomeScreen(
 //            diaries = diaries,
-//            drawerState = drawerState,
+            drawerState = drawerState,
             onMenuClicked = {
-//                scope.launch {
-//                    drawerState.open()
-//                }
+                scope.launch {
+                    drawerState.open()
+                }
             },
 //            dateIsSelected = viewModel.dateIsSelected,
 //            onDateSelected = { viewModel.getDiaries(zonedDateTime = it) },
 //            onDateReset = { viewModel.getDiaries() },
-//            onSignOutClicked = { signOutDialogOpened = true },
+            onSignOutClicked = {
+//                signOutDialogOpened = true
+            },
 //            onDeleteAllClicked = { deleteAllDialogOpened = true },
             navigateToWrite = navigateToWrite,
 //            navigateToWriteWithArgs = navigateToWriteWithArgs

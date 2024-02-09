@@ -25,23 +25,23 @@ import java.time.ZonedDateTime
 @Composable
 fun HomeScreen(
 //    diaries: Diaries,
-//    drawerState: DrawerState,
+    drawerState: DrawerState,
     onMenuClicked: () -> Unit,
 //    dateIsSelected: Boolean,
 //    onDateSelected: (ZonedDateTime) -> Unit,
 //    onDateReset: () -> Unit,
-//    onSignOutClicked: () -> Unit,
+    onSignOutClicked: () -> Unit,
 //    onDeleteAllClicked: () -> Unit,
     navigateToWrite: () -> Unit,
 //    navigateToWriteWithArgs: (String) -> Unit
 ) {
     var padding by remember { mutableStateOf(PaddingValues()) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-//    NavigationDrawer(
-//        drawerState = drawerState,
-//        onSignOutClicked = onSignOutClicked,
+    NavigationDrawer(
+        drawerState = drawerState,
+        onSignOutClicked = onSignOutClicked,
 //        onDeleteAllClicked = onDeleteAllClicked
-//    ) {
+    ) {
     Scaffold(
 //        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -91,16 +91,16 @@ fun HomeScreen(
 //                        }
 //                    }
 //                    else -> {}
-//                }
+                })
             }
-        )
+
 }
 
 @Composable
 fun NavigationDrawer(
     drawerState: DrawerState,
     onSignOutClicked: () -> Unit,
-    onDeleteAllClicked: () -> Unit,
+//    onDeleteAllClicked: () -> Unit,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
@@ -133,24 +133,24 @@ fun NavigationDrawer(
                         selected = false,
                         onClick = onSignOutClicked
                     )
-                    NavigationDrawerItem(
-                        label = {
-                            Row(modifier = Modifier.padding(horizontal = 12.dp)) {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = "Delete All Icon",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                                Spacer(modifier = Modifier.width(12.dp))
-                                Text(
-                                    text = "Delete All Diaries",
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        },
-                        selected = false,
-                        onClick = onDeleteAllClicked
-                    )
+//                    NavigationDrawerItem(
+//                        label = {
+//                            Row(modifier = Modifier.padding(horizontal = 12.dp)) {
+//                                Icon(
+//                                    imageVector = Icons.Default.Delete,
+//                                    contentDescription = "Delete All Icon",
+//                                    tint = MaterialTheme.colorScheme.onSurface
+//                                )
+//                                Spacer(modifier = Modifier.width(12.dp))
+//                                Text(
+//                                    text = "Delete All Diaries",
+//                                    color = MaterialTheme.colorScheme.onSurface
+//                                )
+//                            }
+//                        },
+//                        selected = false,
+//                        onClick = onDeleteAllClicked
+//                    )
                 }
             )
         },
