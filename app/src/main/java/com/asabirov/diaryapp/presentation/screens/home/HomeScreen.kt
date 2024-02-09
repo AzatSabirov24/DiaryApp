@@ -118,10 +118,10 @@ fun NavigationDrawer(
                     NavigationDrawerItem(
                         label = {
                             Row(modifier = Modifier.padding(horizontal = 12.dp)) {
-                                Icon(
+                                Image(
                                     painter = painterResource(id = R.drawable.google_logo),
                                     contentDescription = "Google Logo",
-                                    tint = MaterialTheme.colorScheme.onSurface
+//                                    tint = MaterialTheme.colorScheme.onSurface
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Text(

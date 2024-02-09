@@ -32,6 +32,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.asabirov.diaryapp.presentation.components.DisplayAlertDialog
 import com.asabirov.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.asabirov.diaryapp.presentation.screens.auth.AuthenticationViewModel
 import com.asabirov.diaryapp.presentation.screens.home.HomeScreen
@@ -69,10 +70,10 @@ fun SetupNavGraph(
 //            navigateToWriteWithArgs = {
 //                navController.navigate(Screen.Write.passDiaryId(diaryId = it))
 //            },
-//            navigateToAuth = {
-//                navController.popBackStack()
-//                navController.navigate(Screen.Authentication.route)
-//            },
+            navigateToAuth = {
+                navController.popBackStack()
+                navController.navigate(Screen.Authentication.route)
+            },
 //            onDataLoaded = onDataLoaded
         )
         writeRoute(
@@ -167,7 +168,7 @@ fun NavGraphBuilder.authenticationRoute(
 fun NavGraphBuilder.homeRoute(
     navigateToWrite: () -> Unit,
 //    navigateToWriteWithArgs: (String) -> Unit,
-//    navigateToAuth: () -> Unit,
+    navigateToAuth: () -> Unit,
 //    onDataLoaded: () -> Unit
 ) {
     composable(route = Screen.Home.route) {
@@ -190,8 +191,8 @@ fun NavGraphBuilder.homeRoute(
 //        val diaries by viewModel.diaries
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 //        val context = LocalContext.current
-//        var signOutDialogOpened by remember { mutableStateOf(false) }
-//        var deleteAllDialogOpened by remember { mutableStateOf(false) }
+        var signOutDialogOpened by remember { mutableStateOf(false) }
+        var deleteAllDialogOpened by remember { mutableStateOf(false) }
 //
 //        LaunchedEffect(key1 = diaries) {
 //            if (diaries !is RequestState.Loading) {
@@ -211,30 +212,30 @@ fun NavGraphBuilder.homeRoute(
 //            onDateSelected = { viewModel.getDiaries(zonedDateTime = it) },
 //            onDateReset = { viewModel.getDiaries() },
             onSignOutClicked = {
-//                signOutDialogOpened = true
+                signOutDialogOpened = true
             },
 //            onDeleteAllClicked = { deleteAllDialogOpened = true },
             navigateToWrite = navigateToWrite,
 //            navigateToWriteWithArgs = navigateToWriteWithArgs
         )
 //
-//        DisplayAlertDialog(
-//            title = "Sign Out",
-//            message = "Are you sure you want to Sign Out from your Google Account?",
-//            dialogOpened = signOutDialogOpened,
-//            onDialogClosed = { signOutDialogOpened = false },
-//            onYesClicked = {
-//                scope.launch(Dispatchers.IO) {
-//                    val user = App.create(APP_ID).currentUser
-//                    if (user != null) {
-//                        user.logOut()
-//                        withContext(Dispatchers.Main) {
-//                            navigateToAuth()
-//                        }
-//                    }
-//                }
-//            }
-//        )
+        DisplayAlertDialog(
+            title = "Sign Out",
+            message = "Are you sure you want to Sign Out from your Google Account?",
+            dialogOpened = signOutDialogOpened,
+            onDialogClosed = { signOutDialogOpened = false },
+            onYesClicked = {
+                scope.launch(Dispatchers.IO) {
+                    val user = App.create(APP_ID).currentUser
+                    if (user != null) {
+                        user.logOut()
+                        withContext(Dispatchers.Main) {
+                            navigateToAuth()
+                        }
+                    }
+                }
+            }
+        )
 //
 //        DisplayAlertDialog(
 //            title = "Delete All Diaries",
