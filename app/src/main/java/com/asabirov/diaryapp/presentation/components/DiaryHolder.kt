@@ -109,15 +109,13 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis
                 )
-//                if (diary.images.isNotEmpty()) {
-//                    ShowGalleryButton(
-//                        galleryOpened = galleryOpened,
-//                        galleryLoading = galleryLoading,
-//                        onClick = {
-//                            galleryOpened = !galleryOpened
-//                        }
-//                    )
-//                }
+                if (diary.images.isNotEmpty()) {
+                    ShowGalleryButton(
+                        galleryOpened = galleryOpened,
+                        galleryLoading = galleryLoading,
+                        onClick = { galleryOpened = !galleryOpened }
+                    )
+                }
 //                AnimatedVisibility(
 //                    visible = galleryOpened && !galleryLoading,
 //                    enter = fadeIn() + expandVertically(
@@ -131,6 +129,11 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
 //                        Gallery(images = downloadedImages)
 //                    }
 //                }
+                AnimatedVisibility(visible = galleryOpened) {
+                    Column(modifier = Modifier.padding(all = 14.dp)) {
+                        Gallery(images = downloadedImages)
+                    }
+                }
             }
         }
     }
@@ -172,21 +175,21 @@ fun DiaryHeader(moodName: String, time: Instant) {
     }
 }
 
-//@Composable
-//fun ShowGalleryButton(
-//    galleryOpened: Boolean,
-//    galleryLoading: Boolean,
-//    onClick: () -> Unit
-//) {
-//    TextButton(onClick = onClick) {
-//        Text(
-//            text = if (galleryOpened)
-//                if (galleryLoading) "Loading" else "Hide Gallery"
-//            else "Show Gallery",
-//            style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize)
-//        )
-//    }
-//}
+@Composable
+fun ShowGalleryButton(
+    galleryOpened: Boolean,
+    galleryLoading: Boolean,
+    onClick: () -> Unit
+) {
+    TextButton(onClick = onClick) {
+        Text(
+            text = if (galleryOpened)
+                if (galleryLoading) "Loading" else "Hide Gallery"
+            else "Show Gallery",
+            style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize)
+        )
+    }
+}
 
 @Composable
 @Preview
